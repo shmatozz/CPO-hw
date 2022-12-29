@@ -3,6 +3,7 @@
 
 int main() {
     double task_number;
+    std::cout << "Input task number:";
     std::cin >> task_number;
 
     if (task_number == 1.1) {
@@ -23,6 +24,10 @@ int main() {
         task2_2();
     } else if (task_number == 2.3) {
         task2_3();
+    } else if (task_number == 3.1) {
+        task3_1();
+    } else if (task_number == 3.2) {
+        task3_2();
     }
 
     return 0;

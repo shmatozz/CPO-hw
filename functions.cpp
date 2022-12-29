@@ -85,3 +85,26 @@ void bubbleSort(int n, short* arr) {
         }
     }
 }
+
+template <>
+void bubbleSortTemp<char>(int n, char* arr) {
+    for (int i = 0; i < n; ++i) {
+        if (!((arr[i] >= 65 && arr[i] <= 90) || (arr[i] >= 97 && arr[i] <= 122))) {
+            arr[i] = 123;
+            printArray(n, arr);
+        }
+    }
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (std::tolower(arr[i]) > std::tolower(arr[j])) {
+                std::swap(arr[i], arr[j]);
+            }
+        }
+    }
+    for (int i = 0; i < n; ++i) {
+        if (!((arr[i] >= 65 && arr[i] <= 90) || (arr[i] >= 97 && arr[i] <= 122))) {
+            arr[i] = 32;
+            printArray(n, arr);
+        }
+    }
+}

@@ -91,5 +91,59 @@ void task2_2() {
 }
 
 void task2_3() {
-    
+    int* n = new int;
+    std::cout << "Input length of array:";
+    std::cin >> *n;
+    std::string type;
+    std::cout << "Input type of array:";
+    std::cin >> type;
+    if (type == "int") {
+        auto * arr = new int[*n];
+        fill_sort(*n, arr);
+    } else if (type == "double") {
+        auto * arr = new double[*n];
+        fill_sort(*n, arr);
+    } else if (type == "short") {
+        auto *arr = new short[*n];
+        fill_sort(*n, arr);
+    } else if (type == "char") {
+        auto *arr = new char[*n];
+        fill_sort(*n, arr);
+    } else {
+        std::cout << "Unknown type" << std::endl;
+        return;
+    }
+    delete n;
+}
+
+// --------------------------------
+// work 3
+
+void task3_1() {
+    DynArray arr(10);
+    arr.append(1.0);
+    for (int i = 0; i < 15; ++i) {
+        arr.append(i + 0.1);
+    }
+    for (int i = 0; i < arr.cur_length; ++i) {
+        std::cout << arr.get(i) << ' ';
+    }
+    std::cout << std::endl;
+}
+
+void task3_2() {
+    MyStack stack;
+    stack.push(1);
+    std::cout << stack.peak() << std::endl;
+
+    for (int i = 0; i < 10; ++i) {
+        stack.push(i + 2);
+    }
+    stack.print();
+    std::cout << stack.pop() << std::endl;
+    std::cout << stack.peak() << std::endl;
+    stack.print();
+
+    std::cout << stack.capacity() << std::endl;
+    std::cout << stack.cur_size() << std::endl;
 }
