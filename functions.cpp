@@ -56,9 +56,9 @@ double geom_seq(double a, double q, double e) {
     return ans;
 }
 
-void bubbleSort(int arrLen, int* arr) {
-    for (int i = 0; i < arrLen; i++) {
-        for (int j = i + 1; j < arrLen; j++) {
+void bubbleSort(int n, int* arr) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
             if (arr[i] > arr[j]) {
                 std::swap(arr[i], arr[j]);
             }
@@ -66,27 +66,22 @@ void bubbleSort(int arrLen, int* arr) {
     }
 }
 
-void fillArray(int n, int* arr) {
-    std::mt19937 mt_engine(
-            std::chrono::system_clock::now().
-                    time_since_epoch().count()
-    );
-    std::uniform_int_distribution<int> dist(-100, 100);
+void bubbleSort(int n, double* arr) {
     for (int i = 0; i < n; i++) {
-        arr[i] = dist(mt_engine);
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                std::swap(arr[i], arr[j]);
+            }
+        }
     }
-
 }
 
-void printArray(int n, int* arr) {
-    for (int i = 0; i < n; ++i) {
-        std::cout << arr[i] << ' ';
-    }
-    std::cout << std::endl;
-}
-
-void fillArrayKB(int n, int* arr) {
-    for (int i = 0; i < n; ++i) {
-        std::cin >> arr[i];
+void bubbleSort(int n, short* arr) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                std::swap(arr[i], arr[j]);
+            }
+        }
     }
 }

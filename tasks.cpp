@@ -4,8 +4,9 @@
 // work 1
 void task1_1() {
     int number;
+    std::cout << "Input number:";
     std::cin >> number;
-    std::cout << factorial(number) << std::endl;
+    std::cout << "Factorial = " << factorial(number) << std::endl;
 }
 
 void task1_2() {
@@ -20,13 +21,15 @@ void task1_2() {
 
 void task1_3() {
     int n = 100;
+    std::cout << "Simple numbers from 1 to " << n << std::endl;
     simple_numbers(n);
 }
 
 void task1_4() {
     int n;
+    std::cout << "Input number:";
     std::cin >> n;
-    std::cout << to_binary(n) << std::endl;
+    std::cout << "binary = " << to_binary(n) << std::endl;
 }
 
 void task1_5() {
@@ -37,6 +40,7 @@ void task1_5() {
 
 void task1_6() {
     char symbol;
+    std::cout << "Input symbol:";
     std::cin >> symbol;
     if ((symbol >= 65 && symbol <= 90) || (symbol >= 97 && symbol <= 122)) std::cout << "Symbol is a letter!" << std::endl;
     else std::cout << "Symbol is NOT a letter" << std::endl;
@@ -47,12 +51,16 @@ void task1_6() {
 
 void task2_1() {
     int* n = new int;
+    std::cout << "Input length of array:";
     std::cin >> *n;
     int* arr = new int[*n];
+    std::cout << "Fill array:";
     fillArrayKB(*n, arr);
+    std::cout << "Initial array: ";
     printArray(*n, arr);
 
     bubbleSort(*n, arr);
+    std::cout << "Sorted array: ";
     printArray(*n, arr);
 
     delete n;
@@ -60,9 +68,28 @@ void task2_1() {
 }
 
 void task2_2() {
-
+    int* n = new int;
+    std::cout << "Input length of array:";
+    std::cin >> *n;
+    std::string type;
+    std::cout << "Input type of array:";
+    std::cin >> type;
+    if (type == "int") {
+        auto * arr = new int[*n];
+        fill_sort(*n, arr);
+    } else if (type == "double") {
+        auto * arr = new double[*n];
+        fill_sort(*n, arr);
+    } else if (type == "short") {
+        auto *arr = new short[*n];
+        fill_sort(*n, arr);
+    } else {
+        std::cout << "Unknown type" << std::endl;
+        return;
+    }
+    delete n;
 }
 
 void task2_3() {
-
+    
 }

@@ -18,12 +18,49 @@ std::string to_binary(int n);
 double geom_seq(double a, double q, double e);
 
 void bubbleSort(int n, int* arr);
+void bubbleSort(int n, double* arr);
+void bubbleSort(int n, short* arr);
 
-void fillArray(int n, int* arr);
+template <typename T>
+void fillArray(int n, T* arr) {
+    std::mt19937 mt_engine(
+            std::chrono::system_clock::now().
+                    time_since_epoch().count()
+    );
+    std::uniform_int_distribution<int> dist(-100, 100);
+    for (int i = 0; i < n; i++) {
+        arr[i] = dist(mt_engine);
+    }
 
-void printArray(int n, int* arr);
+}
 
-void fillArrayKB(int n, int* arr);
+template <typename T>
+void printArray(int n, T* arr) {
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << ' ';
+    }
+    std::cout << std::endl;
+}
 
+template <typename T>
+void fillArrayKB(int n, T* arr) {
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+}
+
+template <typename T>
+void fill_sort(int n, T* arr) {
+    std::cout << "Fill array:";
+    fillArrayKB(n, arr);
+    std::cout << "Initial array: ";
+    printArray(n, arr);
+
+    bubbleSort(n, arr);
+    std::cout << "Sorted array: ";
+    printArray(n, arr);
+
+    delete[] arr;
+}
 
 #endif //CPO_HW_FUNCTIONS_H
