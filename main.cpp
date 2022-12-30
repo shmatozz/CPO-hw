@@ -28,6 +28,10 @@ int main() {
         task3_1();
     } else if (task_number == 3.2) {
         task3_2();
+    } else if (task_number == 4.1) {
+        task4_1();
+    } else if (task_number == 4.2) {
+        task4_2();
     }
 
     return 0;

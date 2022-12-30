@@ -123,7 +123,7 @@ void task3_1() {
     DynArray arr(10);
     arr.append(1.0);
     for (int i = 0; i < 15; ++i) {
-        arr.append(i + 0.1);
+        arr.append(i + 0.0);
     }
     for (int i = 0; i < arr.cur_length; ++i) {
         std::cout << arr.get(i) << ' ';
@@ -146,4 +146,57 @@ void task3_2() {
 
     std::cout << stack.capacity() << std::endl;
     std::cout << stack.cur_size() << std::endl;
+}
+
+// --------------------------------
+// work 4
+
+void task4_1() {
+    Vec3D a(1, 2, 1);
+    Vec3D b(2, 2, 1);
+    Vec3D c = a * b;
+    a.print();
+    b.print();
+    std::cout << "Scalar multiply (a * b) = ";
+    c.print();
+    Vec3D d = a & b;
+    std::cout << "Vector multiply (a & b) = ";
+    d.print();
+}
+
+void task4_2() {
+    DynArray arr(10);
+    arr.append(1.0);
+    for (int i = 0; i < 15; ++i) {
+        arr.append(i);
+    }
+    std::cout << "Initial DynArray: ";
+    arr.print();
+    DynArray arr2;
+    arr2 = arr;
+    std::cout << "Operator= copy of DynArray: ";
+    arr2.print();
+    DynArray arr3 = arr;
+    std::cout << "Copy ctor copy of DynArray: ";
+    arr3.print();
+
+    std::cout << "Current amount of \"alive\" elements = " << arr.cur_len() << std::endl;
+
+    std::cout << "\nTesting [] operator:" << std::endl;
+    std::cout << "Array[0] = " << arr[0] << std::endl;
+    arr[0] = 10;
+    arr.print();
+
+    std::cout << "\nTesting + operator:" << std::endl;
+    DynArray arr4 = arr + arr2;
+    arr4.print();
+
+    std::cout << "\nTesting >> operator:" << std::endl;
+    arr >> 2;
+    arr.print();
+
+    std::cout << "\nTesting << operator:" << std::endl;
+    arr << 2;
+    arr.print();
+
 }

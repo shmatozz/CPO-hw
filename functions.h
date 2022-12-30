@@ -17,7 +17,15 @@ public:
     explicit DynArray() {
         this->arr = new double[1];
         this->size = 1;
-        cur_length = 0;
+        this->cur_length = 0;
+    }
+    DynArray(const DynArray& second) {
+        this->arr = new double[second.size];
+        this->size = second.size;
+        this->cur_length = 0;
+        for (int i = 0; i < second.cur_length; ++i) {
+            this->append(second.arr[i]);
+        }
     }
     ~DynArray() {
         delete[] arr;
@@ -42,6 +50,62 @@ public:
 
     [[nodiscard]] double get(int index) const {
         return arr[index];
+    }
+
+    [[nodiscard]] int cur_len() const {
+        return cur_length;
+    }
+
+    void print() const {
+        for (int i = 0; i < cur_length; ++i) {
+            std::cout << arr[i] << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    DynArray& operator=(const DynArray& second) {
+        this->cur_length = 0;
+        for (int i = 0; i < second.cur_length; ++i) {
+            this->append(second.arr[i]);
+        }
+        this->size = second.size;
+        return *this;
+    }
+    double& operator[](int i) const {
+        return arr[i];
+    }
+    DynArray operator+(const DynArray& second) const {
+        DynArray temp(this->cur_length + second.cur_length);
+        for (int i = 0; i < this->cur_length; ++i) {
+            temp.append(this->arr[i]);
+        }
+        for (int i = 0; i < this->cur_length; ++i) {
+            temp.append(second.arr[i]);
+        }
+        return temp;
+    }
+    DynArray& operator>>(int k) {
+        k = k % cur_length;
+        for (int i = 0; i < k; ++i) {
+            double last = this->arr[cur_length - 1];
+            for (int j = cur_length - 2; j >= 0; j--) {
+                this->arr[j + 1] = this->arr[j];
+            }
+
+            this->arr[0] = last;
+        }
+        return *this;
+    }
+    DynArray& operator<<(int k) {
+        k = k % cur_length;
+        for (int i = 0; i < k; ++i) {
+            double last = this->arr[0];
+            for (int j = 1; j < cur_length; j++) {
+                this->arr[j - 1] = this->arr[j];
+            }
+            this->arr[cur_length - 1] = last;
+        }
+        return *this;
     }
 };
 
@@ -100,6 +164,33 @@ public:
             std::cout << stack[i] << ' ';
         }
         std::cout << std::endl;
+    }
+};
+
+class Vec3D {
+public:
+    double x, y, z;
+    Vec3D() : x(0.0), y(0.0), z(0.0) {}
+    Vec3D(double x_, double y_, double z_) : x(x_), y(y_), z(z_) {}
+
+    Vec3D operator*(Vec3D second) const {
+        Vec3D new_vec;
+        new_vec.x = this->x * second.x;
+        new_vec.y = this->y * second.y;
+        new_vec.z = this->z * second.z;
+        return new_vec;
+    }
+
+    Vec3D operator&(Vec3D second) const {
+        Vec3D new_vec;
+        new_vec.x = this->y * second.z - this->z * second.y;
+        new_vec.y = this->z * second.x - this->x * second.z;
+        new_vec.z = this->x * second.y - this->y * second.x;
+        return new_vec;
+    }
+
+    void print() const {
+        std::cout << '(' << this->x << ", " << this->y << ", " << this->z << ')' << std::endl;
     }
 };
 
