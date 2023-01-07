@@ -32,6 +32,10 @@ int main() {
         task4_1();
     } else if (task_number == 4.2) {
         task4_2();
+    } else if (task_number == 5.1) {
+        task5_1();
+    } else if (task_number == 5.2) {
+        task5_2();
     }
 
     return 0;

@@ -22,4 +22,8 @@ void task3_2();
 void task4_1();
 void task4_2();
 
+// work 5
+void task5_1();
+void task5_2();
+
 #endif //CPO_HW_TASKS_H

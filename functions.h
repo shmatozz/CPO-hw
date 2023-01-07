@@ -194,6 +194,80 @@ public:
     }
 };
 
+class Mat2D {
+public:
+    Mat2D(int n_, int m_) : n(n_), m(m_) {
+        matrix = new int*[n_];
+        for (int i = 0; i < n; ++i) {
+            matrix[i] = new int[m_];
+        }
+        std::cout << "~created matrix " << n << 'x' << m << std::endl;
+    }
+    Mat2D() {
+        std::cout << "Input dim of matrix NxM:" << std::endl;
+        std::cin >> n >> m;
+        matrix = new int*[n];
+        for (int i = 0; i < n; ++i) {
+            matrix[i] = new int[m];
+        }
+        std::cout << "~created matrix " << n << 'x' << m << std::endl;
+    }
+    ~Mat2D() {
+        for (int i = 0; i < n; ++i) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }
+
+    int** matrix = new int*[1];
+    int n{}, m{};
+
+    void fill() const {
+        std::cout << "Input matrix" << std::endl;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                std::cin >> matrix[i][j];
+            }
+        }
+    }
+    void print() const {
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) { std::cout << this->matrix[i][j] << ' '; }
+            std::cout << std::endl;
+        }
+    }
+
+    Mat2D operator+(const Mat2D& second) const {
+        if (this->n != second.n || this->m != second.m) {
+            std::cout << "Dimension error (+), first matrix returned" << std::endl;
+            return *this;
+        }
+        Mat2D temp(this->n, this->m);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                temp.matrix[i][j] = this->matrix[i][j] + second.matrix[i][j];
+            }
+        }
+        return temp;
+    }
+    Mat2D operator*(const Mat2D& second) const {
+        if (this->m != second.n) {
+            std::cout << "Dimension error (*), first matrix returned" << std::endl;
+            return *this;
+        }
+        Mat2D temp(this->n, second.m);
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < second.m; ++j) {
+                temp.matrix[i][j] = 0;
+                for (int k = 0; k < this->m; ++k) {
+                    temp.matrix[i][j] += this->matrix[i][k] * second.matrix[k][j];
+                }
+            }
+        }
+        return temp;
+    }
+};
+
 long long factorial(int i);
 
 double* square_x(double a, double b, double c);

@@ -200,3 +200,27 @@ void task4_2() {
     arr.print();
 
 }
+
+// --------------------------------
+// work 5
+
+void task5_1() {
+    std::cout << "The task is to refactor project to many files" << std::endl;
+}
+
+void task5_2() {
+    Mat2D matrix, matrix2;
+    matrix.fill();
+    matrix.print();
+    matrix2.fill();
+    matrix2.print();
+
+    std::cout << "Testing (+) of matrix:" << std::endl;
+    Mat2D matrix3 = matrix + matrix2;
+    matrix3.print();
+
+    std::cout << "Testing (*) of matrix:" << std::endl;
+    Mat2D matrix4 = matrix * matrix2;
+    matrix4.print();
+
+}
