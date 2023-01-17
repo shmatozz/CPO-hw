@@ -120,7 +120,7 @@ void task2_3() {
 // work 3
 
 void task3_1() {
-    DynArray arr(10);
+    DynArray<double> arr;
     arr.append(1.0);
     for (int i = 0; i < 15; ++i) {
         arr.append(i + 0.0);
@@ -165,14 +165,14 @@ void task4_1() {
 }
 
 void task4_2() {
-    DynArray arr(10);
+    DynArray<double> arr;
     arr.append(1.0);
     for (int i = 0; i < 15; ++i) {
         arr.append(i);
     }
     std::cout << "Initial DynArray: ";
     arr.print();
-    DynArray arr2;
+    DynArray<double> arr2;
     arr2 = arr;
     std::cout << "Operator= copy of DynArray: ";
     arr2.print();
@@ -209,18 +209,87 @@ void task5_1() {
 }
 
 void task5_2() {
-    Mat2D matrix, matrix2;
+    Mat2D<int> matrix, matrix2;
     matrix.fill();
     matrix.print();
     matrix2.fill();
     matrix2.print();
 
-    std::cout << "Testing (+) of matrix:" << std::endl;
+    std::cout << "\nTesting (+) of matrix:" << std::endl;
     Mat2D matrix3 = matrix + matrix2;
     matrix3.print();
 
-    std::cout << "Testing (*) of matrix:" << std::endl;
+    std::cout << "\nTesting (*) of matrix:" << std::endl;
     Mat2D matrix4 = matrix * matrix2;
     matrix4.print();
 
+    std::cout << "\nTesting indexation of matrix:" << std::endl;
+    std::cout << "element (0,0) of matrix1 = " << matrix(0, 0) << std::endl;
+
+    std::cout << "\nTesting transposition of matrix:" << std::endl;
+    std::cout << "Before:" << std::endl;
+    matrix.print();
+
+    matrix.trans();
+
+    std::cout << "After:" << std::endl;
+    matrix.print();
+
+    std::cout << "\nTesting determinant of matrix: " << std::endl;
+    std::cout << matrix.determinant() << std::endl;
+
+}
+
+// --------------------------------
+// work 6
+
+void task6_1() {
+    std::cout << "class DynArray was templated, now it can work with any* type\n" << std::endl;
+
+    DynArray<int> int_arr;
+    for (int i = 0; i < 10; ++i) { int_arr.append(i + 1); }
+    DynArray<char> char_arr;
+    for (int i = 0; i < 10; ++i) { char_arr.append(i + 65); }
+    int_arr.print();
+    char_arr.print();
+}
+
+void task6_2() {
+    std::cout << "class DynArray was rewritten, now it implemented using std::vector<T>\n" << std::endl;
+
+    DynArray<int> int_arr;
+    for (int i = 0; i < 10; ++i) { int_arr.append(i + 1); }
+    DynArray<char> char_arr;
+    for (int i = 0; i < 10; ++i) { char_arr.append(i + 65); }
+    int_arr.print();
+    char_arr.print();
+}
+
+void task6_3() {
+    MyQueue<int> q;
+    std::cout << q.first() << std::endl;
+    for (int i = 0; i < 10; ++i) {
+        q.push(i);
+    }
+    q.print();
+    std::cout << "Pop element: " << q.pop() << std::endl;
+    q.print();
+
+    std::cout << "First element: " << q.first() << std::endl;
+    std::cout << "Last element: " << q.last() << std::endl;
+}
+
+void task6_4() {
+    std::cout << "class Mat2D was templated and rewritten, now it implemented using std::vector<T>\n" << std::endl;
+
+    Mat2D<char> char_matrix;
+    Mat2D<float> double_matrix;
+    double_matrix.fill();
+    double_matrix(0, 0) = 1.1;
+
+    double_matrix.print();
+    double_matrix.trans();
+    double_matrix.print();
+
+    double_matrix.print();
 }

@@ -6,58 +6,43 @@
 #include <cmath>
 #include <chrono>
 #include <random>
+#include <vector>
 
+template <class T>
 class DynArray {
 public:
-    explicit DynArray(int size) {
-        this->arr = new double[size];
-        this->size = size;
+    explicit DynArray() {
+        arr.clear();
         cur_length = 0;
     }
-    explicit DynArray() {
-        this->arr = new double[1];
-        this->size = 1;
-        this->cur_length = 0;
-    }
     DynArray(const DynArray& second) {
-        this->arr = new double[second.size];
-        this->size = second.size;
+        arr.clear();
         this->cur_length = 0;
         for (int i = 0; i < second.cur_length; ++i) {
             this->append(second.arr[i]);
         }
     }
-    ~DynArray() {
-        delete[] arr;
-    }
+    ~DynArray() = default;
 
-    double *arr = new double[1];
-    int size, cur_length;
+    // T *arr = new T[1];
+    std::vector<T> arr;
+    int cur_length = 0;
 
-    void append(double val) {
-        if (cur_length == size) {
-            auto *temp = new double[size * 2 + 1];
-            for (int i = 0; i < cur_length; ++i) {
-                temp[i] = arr[i];
-            }
-            delete[] arr;
-            arr = temp;
-            size = size * 2 + 1;
-        }
-        arr[cur_length] = val;
+    void append(T val) {
+        arr.push_back(val);
         cur_length++;
     }
 
-    [[nodiscard]] double get(int index) const {
+    [[nodiscard]] T get(int index) const {
         return arr[index];
     }
 
     [[nodiscard]] int cur_len() const {
-        return cur_length;
+        return arr.size();
     }
 
     void print() const {
-        for (int i = 0; i < cur_length; ++i) {
+        for (int i = 0; i < arr.size(); ++i) {
             std::cout << arr[i] << ' ';
         }
         std::cout << std::endl;
@@ -68,14 +53,13 @@ public:
         for (int i = 0; i < second.cur_length; ++i) {
             this->append(second.arr[i]);
         }
-        this->size = second.size;
         return *this;
     }
-    double& operator[](int i) const {
+    T& operator[](int i) {
         return arr[i];
     }
     DynArray operator+(const DynArray& second) const {
-        DynArray temp(this->cur_length + second.cur_length);
+        DynArray temp;
         for (int i = 0; i < this->cur_length; ++i) {
             temp.append(this->arr[i]);
         }
@@ -167,6 +151,58 @@ public:
     }
 };
 
+template <class T>
+class MyQueue {
+public:
+    MyQueue() {
+        queue.clear();
+        cur_length = 0;
+    }
+    ~MyQueue() = default;
+
+    std::vector<T> queue;
+    int cur_length = 0;
+
+    void push(T val) {
+        queue.push_back(val);
+        cur_length++;
+    }
+    T pop() {
+        T ans = queue[0];
+        operator<<(1);
+        cur_length--;
+        return ans;
+    }
+    T first() {
+        if (cur_length > 0) return queue[0];
+        std::cout << "Queue is empty!\n-1 returned" << std::endl;
+        return -1;
+    }
+    T last() {
+        if (cur_length > 0 ) return queue[cur_length - 1];
+        std::cout << "Queue is empty!\n-1 returned" << std::endl;
+        return -1;
+     }
+    void print() {
+        for (auto i = 0; i < cur_length; i++) {
+            std::cout << queue[i] << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+    MyQueue<T> operator<<(int k) {
+        k = k % cur_length;
+        for (int i = 0; i < k; ++i) {
+            double last = this->queue[0];
+            for (int j = 1; j < cur_length; j++) {
+                this->queue[j - 1] = this->queue[j];
+            }
+            this->queue[cur_length - 1] = last;
+        }
+        return *this;
+    }
+};
+
 class Vec3D {
 public:
     double x, y, z;
@@ -194,40 +230,56 @@ public:
     }
 };
 
+template <class T>
 class Mat2D {
 public:
-    Mat2D(int n_, int m_) : n(n_), m(m_) {
-        matrix = new int*[n_];
-        for (int i = 0; i < n; ++i) {
-            matrix[i] = new int[m_];
+    Mat2D(int n_, int m_) {
+        this->n = n_;
+        this->m = m_;
+        matrix.reserve(n);
+        for (int i = 0; i < m; ++i) {
+            matrix[i].reserve(m);
         }
-        std::cout << "~created matrix " << n << 'x' << m << std::endl;
+        std::cout << "~matrix created " << n << 'x' << m << std::endl;
     }
     Mat2D() {
         std::cout << "Input dim of matrix NxM:" << std::endl;
         std::cin >> n >> m;
-        matrix = new int*[n];
-        for (int i = 0; i < n; ++i) {
-            matrix[i] = new int[m];
+        matrix.reserve(n);
+        for (int i = 0; i < m; ++i) {
+            matrix[i].reserve(m);
         }
-        std::cout << "~created matrix " << n << 'x' << m << std::endl;
+        std::cout << "~matrix created " << n << 'x' << m << std::endl;
+    }
+    Mat2D(const Mat2D& matrix) {
+        this->n = matrix.n;
+        this->m = matrix.m;
+        this->matrix.reserve(n);
+        for (int i = 0; i < this->n; ++i) {
+            this->matrix[i].reserve(m);
+            for (int j = 0; j < this->m; ++j) {
+                this->matrix[i][j] = matrix.matrix[i][j];
+            }
+        }
+        std::cout << "~matrix created " << n << 'x' << m << std::endl;
     }
     ~Mat2D() {
-        for (int i = 0; i < n; ++i) {
-            delete[] matrix[i];
-        }
-        delete[] matrix;
+        std::cout << "~matrix deleted " << n << 'x' << m << std::endl;
     }
 
-    int** matrix = new int*[1];
+    std::vector<std::vector<T>> matrix;
     int n{}, m{};
 
-    void fill() const {
+    void fill() {
         std::cout << "Input matrix" << std::endl;
+        T a;
         for (int i = 0; i < n; ++i) {
+            std::vector<T> temp;
             for (int j = 0; j < m; ++j) {
-                std::cin >> matrix[i][j];
+                std::cin >> a;
+                temp.push_back(a);
             }
+            matrix.push_back(temp);
         }
     }
     void print() const {
@@ -236,13 +288,34 @@ public:
             std::cout << std::endl;
         }
     }
+    void trans() {
+        std::vector<std::vector<T>> temp;
+        temp.resize(m);
+        for (int i = 0; i < this->m; ++i) {
+            temp[i].resize(n);
+            for (int j = 0; j < this->n; ++j) {
+                temp[i][j] = this->matrix[j][i];
+            }
+        }
+        matrix = temp;
+        std::swap(this->n, this->m);
+    }
+    [[nodiscard]] int determinant() const {
+        if (this->n != this->m) {
+            std::cout << "n != m, matrix is not squared" << std::endl;
+            return 0;
+        }
 
-    Mat2D operator+(const Mat2D& second) const {
+        return 1;
+    }
+
+
+    Mat2D operator+(const Mat2D& second) {
         if (this->n != second.n || this->m != second.m) {
             std::cout << "Dimension error (+), first matrix returned" << std::endl;
             return *this;
         }
-        Mat2D temp(this->n, this->m);
+        Mat2D<T> temp(this->n, this->m);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
                 temp.matrix[i][j] = this->matrix[i][j] + second.matrix[i][j];
@@ -255,7 +328,7 @@ public:
             std::cout << "Dimension error (*), first matrix returned" << std::endl;
             return *this;
         }
-        Mat2D temp(this->n, second.m);
+        Mat2D<T> temp(this->n, second.m);
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < second.m; ++j) {
                 temp.matrix[i][j] = 0;
@@ -266,6 +339,11 @@ public:
         }
         return temp;
     }
+    T& operator()(int i, int j)
+    {
+        return matrix[i][j];
+    }
+
 };
 
 long long factorial(int i);
