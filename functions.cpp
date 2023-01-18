@@ -108,3 +108,14 @@ void bubbleSortTemp<char>(int n, char* arr) {
         }
     }
 }
+
+bool isPalindrome(std::string str) {
+    auto start = str.begin();
+    auto end = str.end() - 1;
+    while (start != end) {
+        if (*start != *end) return false;
+        start += 1;
+        end -= 1;
+    }
+    return true;
+}

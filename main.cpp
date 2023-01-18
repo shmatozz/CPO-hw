@@ -44,6 +44,10 @@ int main() {
         task6_3();
     } else if (task_number == 6.4) {
         task6_4();
+    } else if (task_number == 7.1) {
+        task7_1();
+    } else if (task_number == 7.2) {
+        task7_2();
     }
 
     return 0;

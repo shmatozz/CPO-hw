@@ -249,7 +249,7 @@ void task6_1() {
     DynArray<int> int_arr;
     for (int i = 0; i < 10; ++i) { int_arr.append(i + 1); }
     DynArray<char> char_arr;
-    for (int i = 0; i < 10; ++i) { char_arr.append(i + 65); }
+    for (int i = 0; i < 10; ++i) { char_arr.append((char)(i + 65)); }
     int_arr.print();
     char_arr.print();
 }
@@ -260,7 +260,7 @@ void task6_2() {
     DynArray<int> int_arr;
     for (int i = 0; i < 10; ++i) { int_arr.append(i + 1); }
     DynArray<char> char_arr;
-    for (int i = 0; i < 10; ++i) { char_arr.append(i + 65); }
+    for (int i = 0; i < 10; ++i) { char_arr.append((char)(i + 65)); }
     int_arr.print();
     char_arr.print();
 }
@@ -292,4 +292,20 @@ void task6_4() {
     double_matrix.print();
 
     double_matrix.print();
+}
+
+// --------------------------------
+// work 7
+
+void task7_1() {
+    std::string a;
+    std::cout << "Input string:" << std::endl;
+    std::cin >> a;
+    bool ans = isPalindrome(a);
+    if (ans) std::cout << "String is palindrome" << std::endl;
+    else std::cout << "String is NOT palindrome" << std::endl;
+}
+
+void task7_2() {
+
 }
