@@ -7,6 +7,8 @@
 #include <chrono>
 #include <random>
 #include <vector>
+#include <sstream>
+#include <algorithm>
 #include "classes.h"
 
 long long factorial(int i);
@@ -80,5 +82,16 @@ void fill_sort(int n, T* arr) {
 }
 
 bool isPalindrome(std::string str);
+
+template <typename T>
+void printVector(std::vector<T> vec) {
+    for (int i = 0; i < vec.size(); ++i) {
+        std::cout << vec[i] << ' ';
+    }
+    std::cout << std::endl;
+}
+
+std::vector<std::string> stringToVector(const std::string& str);
+std::vector<int> fillIntVector();
 
 #endif //CPO_HW_FUNCTIONS_H

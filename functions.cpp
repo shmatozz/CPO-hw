@@ -119,3 +119,31 @@ bool isPalindrome(std::string str) {
     }
     return true;
 }
+
+std::vector<std::string> stringToVector(const std::string& str) {
+    std::vector<std::string> vec;
+    std::istringstream iss(str);
+    do {
+        std::string subs;
+        iss >> subs;
+        if (subs.length() > 0) vec.push_back(subs);
+    } while (iss);
+
+    return vec;
+}
+
+std::vector<int> fillIntVector() {
+    std::cout << "Input numbers in one row:" << std::endl;
+    std::string str;
+    _flushall();       // очистка всех буферов
+    getline(std::cin, str);
+    std::vector<int> vec;
+    std::istringstream iss(str);
+    do {
+        std::string subs;
+        iss >> subs;
+        if (subs.length() > 0) vec.push_back(std::stoi(subs));
+    } while (iss);
+
+    return vec;
+}

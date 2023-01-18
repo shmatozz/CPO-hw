@@ -48,6 +48,10 @@ int main() {
         task7_1();
     } else if (task_number == 7.2) {
         task7_2();
+    } else if (task_number == 8.1) {
+        task8_1();
+    } else if (task_number == 8.2) {
+        task8_2();
     }
 
     return 0;

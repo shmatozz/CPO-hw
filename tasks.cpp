@@ -307,5 +307,41 @@ void task7_1() {
 }
 
 void task7_2() {
+    std::string str;
+    _flushall();       // очистка всех буферов
+    getline(std::cin, str);
+    std::vector<std::string> words = stringToVector(str);
+    printVector(words);
+
+    std::sort(words.begin(), words.end(), [](const std::string& a, const std::string& b) {return a.length() < b.length();});
+
+    printVector(words);
+}
+
+// --------------------------------
+// work 8
+
+void task8_1() {
+    std::vector<int> vec = fillIntVector();
+    std::cout << "Initial vector: ";
+    printVector(vec);
+    std::cout << "Initial capacity: " << vec.capacity() << std::endl;
+
+    auto i = vec.begin();
+    while (i != vec.end()) {
+        if (*i == 0) {
+            vec.erase(i);
+            continue;
+        }
+        i += 1;
+    }
+
+    vec.shrink_to_fit();
+    std::cout << "\nModified vector: ";
+    printVector(vec);
+    std::cout << "Current capacity: " << vec.capacity() << std::endl;
+}
+
+void task8_2() {
 
 }
